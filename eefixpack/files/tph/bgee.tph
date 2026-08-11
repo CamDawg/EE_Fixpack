@@ -857,7 +857,7 @@ INCLUDE ~eefixpack/files/tph/region_cursors.tph~ // 'Show Triggers On Tab' lua o
 COPY_EXISTING ~ar0132.are~ ~override~
   READ_LONG 0xbc song_off
   WRITE_LONG song_off 11
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS // for sod standalone  
 
 // tbd, cam
 // actors on impassable terrain: https://www.gibberlings3.net/forums/topic/34875-bug-report-ee-content-bugs/page/9/#comment-315538
@@ -873,7 +873,7 @@ COPY_EXISTING ~ar1801.are~ ~override~
   FOR (index = cre_num ; index < 10 ; ++index) BEGIN
     WRITE_ASCII (rest_off + 0x48 + (0x08 * index)) ~~ #8 // blank any entry beyond the valid number of creatures
   END
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS // for sod standalone  
 
 // tbd, cam
 // ambient blocks footstep sounds
@@ -1770,7 +1770,7 @@ COPY_EXISTING ~ar1000.wed~ ~override~
       WRITE_LONG (offset + door_off + (index * 0x1a)) (val - adj)
     END
   END   
-  BUT_ONLY  
+  BUT_ONLY IF_EXISTS // for sod standalone  
 
 /////                                                  \\\\\
 ///// final batch of INCLUDEs and cross-patching       \\\\\

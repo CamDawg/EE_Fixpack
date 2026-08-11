@@ -8,9 +8,11 @@ ACTION_IF game_is_bgee BEGIN
 
   //COPY_EXISTING ~ar0121.are~ ~override~ // overcharged misc29 in charge 1 - seems intentional
   //  LPF ALTER_AREA_ITEM INT_VAR charge1 = 20 STR_VAR match_item = misc29 END
+  //  IF_EXISTS // for sod standalone
 
   COPY_EXISTING ~ar0618.are~ ~override~ // overcharged book60 in charge 2
     LPF ALTER_AREA_ITEM INT_VAR charge2 = 0 charge3 = 0 STR_VAR match_item = book60 END
+    IF_EXISTS // for sod standalone
 
 // creatures
 

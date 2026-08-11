@@ -10,11 +10,13 @@ ACTION_IF game_is_bgee BEGIN
     END  
     PATCH_FOR_EACH region IN Left Right1 Right2 R9b L2c BEGIN 
       LPF ALTER_AREA_REGION INT_VAR cursor = 0 STR_VAR region_name = EVAL ~Chase%region%~ END
-    END  
+    END
+    IF_EXISTS // for sod standalone  
 
   COPY_EXISTING ~ar0514.are~ ~override~
     LPF ALTER_AREA_REGION INT_VAR cursor = 0 STR_VAR region_name = ~crushtrap2~ END
     LPF ALTER_AREA_REGION INT_VAR cursor = 0 STR_VAR region_name = ~crushtrap3~ END
+    IF_EXISTS // for sod standalone  
 
   //COPY_EXISTING ~bd1000.are~ ~override~ // Tradeway_exit, Dead Goblins, Bddgob[1-4]: none are visible
   //COPY_EXISTING ~bd2000.are~ ~override~ //Bridgefort_exit not visible
