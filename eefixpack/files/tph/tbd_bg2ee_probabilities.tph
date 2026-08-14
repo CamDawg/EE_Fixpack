@@ -48,6 +48,21 @@ COPY_EXISTING ~ohbdli01.cre~ ~override~ // has leftover 293
               ~talmiss2.cre~ ~override~ // has leftover 184
   LPF DELETE_EFFECT INT_VAR match_probability1 = 100 match_probability2 = 100 END 
   BUT_ONLY 
+
+// offload FoA's slow effect to spell for integration with SLOW_IMMUNITY stuff
+OUTER_SET splstate_slow_immunity = IDS_OF_SYMBOL (~splstate~ ~SLOW_IMMUNITY~)   
+COPY ~eefixpack/files/spl/cdfoaslw.spl~ ~override~
+  LPF ALTER_EFFECT INT_VAR check_globals = 0 match_opcode = 318 parameter1 = splstate_slow_immunity END
+
+// alter FoA effects to use spell aove for slow instead of direct effects
+// also fix probability for FoA +3's slow while we're here
+COPY_EXISTING ~blun14.itm~  ~override~ // flail of ages +3
+              ~blun30.itm~  ~override~ // flail of ages +5
+              ~blun30c.itm~ ~override~ // flail of ages +4 (poison)
+              ~blun30d.itm~ ~override~ // flail of ages +4 (cold)
+  LPF DELETE_EFFECT INT_VAR check_globals = 0 match_opcode = 40 END // delete 'slow' effect         
+  LPF ALTER_EFFECT INT_VAR check_globals = 0 match_opcode = 139 opcode = 146 parameter1 = 0 
+    parameter2 = 1 probability1 = 32 STR_VAR resource = cdfoaslw END // change slow string to cast subspell instead
   
 COPY_EXISTING ~blun27.itm~ ~override~ // club of detonation +5: fire damage probability is wrong, fireball is correct, so fix manually
   LPF ALTER_EFFECT INT_VAR match_probability1 = 30 probability1 = 29 END // bonus fire damage & visual
@@ -106,7 +121,7 @@ COPY_EXISTING ~aurstaf.itm~  ~override~ // staff of the ram +4: 10% chance to st
               ~balor.itm~    ~override~ // balor weapon: 15% vorpal hit
               ~bddart01.itm~ ~override~ // biter dart: 10% chance of -1 ac
               ~blakblad.itm~ ~override~ // black blade o' disaster: 10% level drain
-              ~blun14.itm~   ~override~ // flail of ages +3, 33% chance to slow
+//            ~blun14.itm~   ~override~ // flail of ages +3, 33% chance to slow - fixed above
               ~blun26.itm~   ~override~ // club of detonation +3: 20% extra fire damage, 7% fireball
 //            ~blun27.itm~   ~override~ // club of detonation +5: 30% extra fire damage, 5% fireball; fixed above
               ~blun29.itm~   ~override~ // storm star +5: 5% chance of chain lightning
